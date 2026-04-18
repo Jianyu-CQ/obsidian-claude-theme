@@ -1,0 +1,488 @@
+/* ============================================================
+   Claude-Inspired Obsidian Theme
+   风格参考 Claude 网页版 —— 暖米色 · 橙色强调 · 优雅排版
+   
+   使用方法：
+   将此文件放入 .obsidian/snippets/ 目录，
+   然后在「外观 → CSS 代码片段」中启用它。
+   ============================================================ */
+
+/* ── 颜色变量 ─────────────────────────────────────────────── */
+:root {
+  --claude-bg:           #F5F0E8;   /* 主背景：暖米白 */
+  --claude-bg-alt:       #EDE8DF;   /* 侧边栏背景 */
+  --claude-bg-hover:     #E5DED2;   /* 悬停背景 */
+  --claude-surface:      #FDFBF7;   /* 卡片/编辑区背景 */
+  --claude-border:       #D8D0C4;   /* 边框线 */
+  --claude-border-light: #E8E2D8;   /* 浅边框 */
+
+  --claude-text:         #1A1614;   /* 主文字 */
+  --claude-text-muted:   #6B6560;   /* 次要文字 */
+  --claude-text-faint:   #A09890;   /* 淡文字 */
+
+  --claude-accent:       #C96442;   /* 橙色强调（Claude 品牌色） */
+  --claude-accent-warm:  #E07A52;   /* 悬停橙色 */
+  --claude-accent-light: #F2E8E2;   /* 橙色背景浅色 */
+  --claude-accent-dark:  #A0502F;   /* 深橙色 */
+
+  --claude-code-bg:      #F0EBE3;   /* 代码块背景 */
+  --claude-quote-border: #C96442;   /* 引用左边框 */
+  --claude-tag-bg:       #EDE5DA;   /* 标签背景 */
+
+  --claude-radius:       10px;      /* 圆角 */
+  --claude-radius-sm:    6px;
+  --claude-shadow:       0 1px 4px rgba(60,40,20,0.08), 0 4px 16px rgba(60,40,20,0.06);
+  --claude-shadow-sm:    0 1px 3px rgba(60,40,20,0.07);
+}
+
+/* ── 全局背景与字体 ──────────────────────────────────────── */
+.theme-light,
+body {
+  --background-primary:          var(--claude-surface);
+  --background-primary-alt:      var(--claude-bg);
+  --background-secondary:        var(--claude-bg-alt);
+  --background-secondary-alt:    var(--claude-bg-hover);
+  --background-modifier-border:  var(--claude-border);
+  --background-modifier-hover:   var(--claude-bg-hover);
+  --background-modifier-active-hover: var(--claude-accent-light);
+  --background-modifier-success: #D4EBD4;
+  --background-modifier-error:   #F0D8D8;
+
+  --text-normal:   var(--claude-text);
+  --text-muted:    var(--claude-text-muted);
+  --text-faint:    var(--claude-text-faint);
+  --text-accent:   var(--claude-accent);
+  --text-accent-hover: var(--claude-accent-warm);
+  --text-on-accent: #FFFFFF;
+
+  --interactive-accent:       var(--claude-accent);
+  --interactive-accent-hover: var(--claude-accent-warm);
+  --interactive-normal:       var(--claude-bg-alt);
+  --interactive-hover:        var(--claude-bg-hover);
+  --interactive-active:       var(--claude-accent-light);
+
+  --font-text-size:        16px;
+  --line-height-normal:    1.75;
+  --font-text-theme:       "Georgia", "Palatino Linotype", serif;
+  --font-interface-theme:  "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-monospace-theme:  "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+
+  --divider-color:         var(--claude-border);
+  --tab-outline-color:     var(--claude-border);
+  --scrollbar-bg:          transparent;
+  --scrollbar-thumb-bg:    var(--claude-border);
+}
+
+/* ── 左侧文件树 ──────────────────────────────────────────── */
+.nav-folder-title,
+.nav-file-title {
+  border-radius: var(--claude-radius-sm);
+  padding: 3px 8px;
+  transition: background 0.15s, color 0.15s;
+  font-size: 14px;
+  color: var(--claude-text-muted);
+}
+
+.nav-file-title.is-active,
+.nav-folder-title.is-active {
+  background: var(--claude-accent-light);
+  color: var(--claude-accent-dark);
+  font-weight: 600;
+}
+
+.nav-file-title:hover,
+.nav-folder-title:hover {
+  background: var(--claude-bg-hover);
+  color: var(--claude-text);
+}
+
+/* ── 标签页 ─────────────────────────────────────────────── */
+.workspace-tab-header {
+  background: var(--claude-bg);
+  border-bottom: 1px solid var(--claude-border);
+}
+
+.workspace-tab-header-tab {
+  border-radius: var(--claude-radius-sm) var(--claude-radius-sm) 0 0;
+  font-size: 13px;
+  padding: 6px 14px;
+  color: var(--claude-text-muted);
+  transition: background 0.12s;
+}
+
+.workspace-tab-header-tab.is-active {
+  background: var(--claude-surface);
+  color: var(--claude-text);
+  border-top: 2px solid var(--claude-accent);
+  font-weight: 600;
+}
+
+/* ── 编辑区主体 ──────────────────────────────────────────── */
+.cm-editor,
+.markdown-source-view {
+  background: var(--claude-surface);
+}
+
+.markdown-preview-view,
+.markdown-rendered {
+  background: var(--claude-surface);
+  padding: 20px 0;
+}
+
+/* 内容最大宽度，模拟 Claude 的窄列布局 */
+.markdown-preview-view .markdown-preview-section,
+.cm-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ── 标题样式 ────────────────────────────────────────────── */
+.markdown-rendered h1,
+.cm-header-1 {
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--claude-text);
+  border-bottom: 2px solid var(--claude-accent);
+  padding-bottom: 0.3em;
+  margin: 1.4em 0 0.7em;
+  letter-spacing: -0.02em;
+}
+
+.markdown-rendered h2,
+.cm-header-2 {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--claude-text);
+  margin: 1.3em 0 0.5em;
+  letter-spacing: -0.01em;
+}
+
+.markdown-rendered h3,
+.cm-header-3 {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--claude-text);
+  margin: 1.1em 0 0.4em;
+}
+
+.markdown-rendered h4,
+.markdown-rendered h5,
+.markdown-rendered h6 {
+  font-weight: 600;
+  color: var(--claude-text-muted);
+}
+
+/* ── 段落正文 ────────────────────────────────────────────── */
+.markdown-rendered p {
+  line-height: 1.8;
+  color: var(--claude-text);
+  margin-bottom: 1em;
+}
+
+/* ── 链接 ───────────────────────────────────────────────── */
+.markdown-rendered a,
+.cm-link,
+.cm-url {
+  color: var(--claude-accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--claude-accent-light);
+  transition: color 0.12s, border-color 0.12s;
+}
+
+.markdown-rendered a:hover {
+  color: var(--claude-accent-warm);
+  border-bottom-color: var(--claude-accent-warm);
+}
+
+/* 内部链接 */
+.internal-link {
+  color: var(--claude-accent);
+}
+
+/* ── 粗体 / 斜体 ─────────────────────────────────────────── */
+.markdown-rendered strong {
+  color: var(--claude-text);
+  font-weight: 700;
+}
+
+.markdown-rendered em {
+  color: var(--claude-text-muted);
+}
+
+/* ── 行内代码 ────────────────────────────────────────────── */
+.markdown-rendered code,
+.cm-inline-code {
+  font-family: var(--font-monospace-theme);
+  background: var(--claude-code-bg);
+  color: var(--claude-accent-dark);
+  border: 1px solid var(--claude-border);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.88em;
+}
+
+/* ── 代码块 ──────────────────────────────────────────────── */
+.markdown-rendered pre {
+  background: var(--claude-code-bg);
+  border: 1px solid var(--claude-border);
+  border-radius: var(--claude-radius);
+  padding: 16px 20px;
+  overflow-x: auto;
+  box-shadow: var(--claude-shadow-sm);
+}
+
+.markdown-rendered pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: var(--claude-text);
+  font-size: 0.9em;
+  line-height: 1.6;
+}
+
+/* ── 引用块 ──────────────────────────────────────────────── */
+.markdown-rendered blockquote {
+  border-left: 3px solid var(--claude-accent);
+  background: var(--claude-accent-light);
+  border-radius: 0 var(--claude-radius-sm) var(--claude-radius-sm) 0;
+  padding: 12px 20px;
+  margin: 1.2em 0;
+  color: var(--claude-text-muted);
+  font-style: italic;
+}
+
+/* ── 列表 ───────────────────────────────────────────────── */
+.markdown-rendered ul,
+.markdown-rendered ol {
+  padding-left: 1.6em;
+  line-height: 1.8;
+}
+
+.markdown-rendered li {
+  margin: 0.3em 0;
+}
+
+.markdown-rendered ul > li::marker {
+  color: var(--claude-accent);
+}
+
+.markdown-rendered ol > li::marker {
+  color: var(--claude-accent);
+  font-weight: 600;
+}
+
+/* ── 表格 ───────────────────────────────────────────────── */
+.markdown-rendered table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.2em 0;
+  border-radius: var(--claude-radius);
+  overflow: hidden;
+  box-shadow: var(--claude-shadow-sm);
+  font-size: 0.95em;
+}
+
+.markdown-rendered th {
+  background: var(--claude-bg-alt);
+  color: var(--claude-text);
+  font-weight: 600;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--claude-border);
+  text-align: left;
+}
+
+.markdown-rendered td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--claude-border-light);
+  color: var(--claude-text);
+}
+
+.markdown-rendered tr:last-child td {
+  border-bottom: none;
+}
+
+.markdown-rendered tr:nth-child(even) td {
+  background: rgba(201, 100, 66, 0.03);
+}
+
+.markdown-rendered tr:hover td {
+  background: var(--claude-accent-light);
+}
+
+/* ── 分割线 ──────────────────────────────────────────────── */
+.markdown-rendered hr {
+  border: none;
+  border-top: 1px solid var(--claude-border);
+  margin: 2em 0;
+}
+
+/* ── 标签 ───────────────────────────────────────────────── */
+.tag {
+  background: var(--claude-tag-bg);
+  color: var(--claude-accent-dark);
+  border: 1px solid var(--claude-border);
+  border-radius: 100px;
+  padding: 1px 10px;
+  font-size: 0.82em;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.12s;
+}
+
+.tag:hover {
+  background: var(--claude-accent-light);
+  color: var(--claude-accent);
+}
+
+/* ── 高亮文字 ────────────────────────────────────────────── */
+.markdown-rendered mark {
+  background: rgba(201, 100, 66, 0.18);
+  color: var(--claude-accent-dark);
+  border-radius: 3px;
+  padding: 0 3px;
+}
+
+/* ── 搜索框 & 模态框 ─────────────────────────────────────── */
+.prompt-input,
+.search-input {
+  background: var(--claude-surface);
+  border: 1.5px solid var(--claude-border);
+  border-radius: var(--claude-radius);
+  color: var(--claude-text);
+  padding: 8px 14px;
+  font-size: 14px;
+  transition: border-color 0.15s;
+}
+
+.prompt-input:focus,
+.search-input:focus {
+  border-color: var(--claude-accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(201, 100, 66, 0.12);
+}
+
+.modal {
+  background: var(--claude-surface);
+  border: 1px solid var(--claude-border);
+  border-radius: var(--claude-radius);
+  box-shadow: var(--claude-shadow);
+}
+
+/* ── 按钮 ───────────────────────────────────────────────── */
+.mod-cta {
+  background: var(--claude-accent);
+  color: #fff;
+  border-radius: var(--claude-radius-sm);
+  padding: 6px 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.mod-cta:hover {
+  background: var(--claude-accent-warm);
+  transform: translateY(-1px);
+}
+
+/* ── 滚动条 ──────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--claude-border);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--claude-text-faint);
+}
+
+/* ── 状态栏 ──────────────────────────────────────────────── */
+.status-bar {
+  background: var(--claude-bg-alt);
+  border-top: 1px solid var(--claude-border);
+  font-size: 11px;
+  color: var(--claude-text-faint);
+}
+
+/* ── 光标闪烁动画（模拟 Claude 打字游标） ─────────────────── */
+.cm-cursor {
+  border-left: 2px solid var(--claude-accent) !important;
+}
+
+/* ── 选中文字高亮 ────────────────────────────────────────── */
+::selection {
+  background: rgba(201, 100, 66, 0.2);
+}
+
+.cm-selectionBackground {
+  background: rgba(201, 100, 66, 0.15) !important;
+}
+
+/* ── Callout 卡片（Obsidian callout 块） ─────────────────── */
+.callout {
+  border-radius: var(--claude-radius);
+  border-left: 4px solid var(--claude-accent);
+  background: var(--claude-accent-light);
+  padding: 12px 16px;
+  margin: 1em 0;
+}
+
+.callout-title {
+  font-weight: 700;
+  color: var(--claude-accent-dark);
+  font-size: 0.95em;
+  margin-bottom: 6px;
+}
+
+.callout[data-callout="info"] {
+  border-left-color: #4A90D9;
+  background: #EAF2FB;
+}
+
+.callout[data-callout="warning"] {
+  border-left-color: #D4A017;
+  background: #FBF5E6;
+}
+
+.callout[data-callout="danger"],
+.callout[data-callout="error"] {
+  border-left-color: #C0392B;
+  background: #FBEAE9;
+}
+
+/* ── 侧边栏面板 ──────────────────────────────────────────── */
+.workspace-leaf-content[data-type="outline"] .tree-item-self,
+.workspace-leaf-content[data-type="tag"] .tree-item-self {
+  border-radius: var(--claude-radius-sm);
+  transition: background 0.12s;
+}
+
+.workspace-leaf-content[data-type="outline"] .tree-item-self:hover,
+.workspace-leaf-content[data-type="tag"] .tree-item-self:hover {
+  background: var(--claude-bg-hover);
+}
+
+/* ── 图片居中 & 圆角 ─────────────────────────────────────── */
+.markdown-rendered img {
+  border-radius: var(--claude-radius);
+  max-width: 100%;
+  box-shadow: var(--claude-shadow-sm);
+  display: block;
+  margin: 1em auto;
+}
+
+/* ── 任务复选框 ──────────────────────────────────────────── */
+.markdown-rendered input[type="checkbox"] {
+  accent-color: var(--claude-accent);
+  width: 15px;
+  height: 15px;
+}
